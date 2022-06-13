@@ -38,9 +38,7 @@ export const ViewUser = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-        .then((resonse) => resonse.json())
-        .then((result) => console.log(result));
+      }).then((resonse) => resonse.json());
     })();
   };
 
