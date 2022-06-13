@@ -23,14 +23,14 @@ import useFetch from "../hooks/useFetch";
 import { useLoading } from "../hooks/useLoading";
 
 export const ViewUser = () => {
-  // States
   const [user, setUser] = useState();
-
-  // Use Params
   const userId = useParams().id;
-
-  // API
   const userData = useFetch("http://localhost:3009/users/" + userId);
+
+  useEffect(() => {
+    setUser(userData);
+  }, [userData]);
+
   const removeUser = () => {
     (async () => {
       await fetch("http://localhost:3009/users/" + userId, {
@@ -44,18 +44,15 @@ export const ViewUser = () => {
     })();
   };
 
-  // Custom Hooks
   const { loadBtn: loadDelete, handleLoadBtn: handleLoadDelete } = useLoading();
   const { loadBtn: loadEdit, handleLoadBtn: handleLoadEdit } = useLoading();
-  const { backBtn: backView, handleBackBtn: handleBackView } = useLoadingBack();
+  const { backBtn, handleBackBtn } = useLoadingBack();
 
-  // Navigation
   const navigate = useNavigate();
   const toast = useToast();
 
-  // Handle Functions
-  const handleGoBackView = () => {
-    handleBackView();
+  const handleGobackBtn = () => {
+    handleBackBtn();
     setTimeout(() => navigate("/"), 1000);
   };
 
@@ -80,11 +77,6 @@ export const ViewUser = () => {
     handleLoadEdit();
     setTimeout(() => navigate("/edit/" + userId), 1000);
   };
-
-  // Use Effect
-  useEffect(() => {
-    setUser(userData);
-  }, [userData]);
 
   return (
     <Flex
@@ -206,8 +198,8 @@ export const ViewUser = () => {
 
                 <Button
                   as="a"
-                  isLoading={backView}
-                  onClick={handleGoBackView}
+                  isLoading={backBtn}
+                  onClick={handleGobackBtn}
                   w={"120px"}
                   h={"25px"}
                   bg="#49a6e9"

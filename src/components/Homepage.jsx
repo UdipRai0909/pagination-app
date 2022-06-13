@@ -12,22 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { useLoading } from "../hooks/useLoading";
 
 export const Homepage = (props) => {
-  // States
-
-  // Props
   const { usersData } = props;
-
-  // Custom Hooks
   const { loadBtn: loadView, handleLoadBtn: handleLoadView } = useLoading();
-
-  // Navigation, Location
   const navigate = useNavigate();
 
-  // Handle Functions
   const handleViewProfile = (id) => {
     handleLoadView();
     setTimeout(() => navigate("/view/" + id), 1000);
-    // navigate("/view/" + id)
   };
 
   return (

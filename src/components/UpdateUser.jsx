@@ -16,26 +16,18 @@ import { useLoading } from "../hooks/useLoading";
 import { useLoadingBack } from "../hooks/useLoadingBack";
 
 export const UpdateUser = () => {
-  // States
   const [user, setUser] = useState();
   const [userUpdate, setUserUpdate] = useState();
-
-  // Use Params
   const userId = useParams().id;
-
-  // API
   const userData = useFetch("http://localhost:3009/users/" + userId);
 
-  // Use Effect
   useEffect(() => {
     setUser(userData);
   }, [userData]);
 
-  // Navigation, Toast
   const navigate = useNavigate();
   const toast = useToast();
 
-  // Custom Hooks
   const { handleFetchPost } = useFetchPost(
     `http://localhost:3009/users/${userId}`,
     "PATCH",
@@ -44,7 +36,6 @@ export const UpdateUser = () => {
   const { loadBtn, handleLoadBtn } = useLoading();
   const { backBtn, handleBackBtn } = useLoadingBack();
 
-  // Handle Functions
   const handleGetBackUpdate = () => {
     handleBackBtn();
     setTimeout(() => navigate("/"), 1000);
